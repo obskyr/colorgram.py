@@ -1,0 +1,6 @@
+{
+    "dependencies": {
+        "colorgram": "^0.1.5",
+        "get-pixels": "^3.3.0"
+    }
+}
