@@ -4,10 +4,10 @@ var fs = require('fs');
 var colorgram = require('colorgram');
 var getPixels = require('get-pixels');
 
-var NUM_COLORS = 12;
+var COLOR_NUMBERS = [1, 12];
 
-function saveColors(colors, outPath) {
-    var s = JSON.stringify(colors, undefined, 4);
+function saveJson(obj, outPath) {
+    var s = JSON.stringify(obj, undefined, 4);
     fs.writeFileSync(outPath, s);
 }
 
@@ -35,9 +35,13 @@ function main() {
             'channels': pixels.shape[2]
         };
         console.log("Extracting colors...");
-        var colors = colorgram.extract(image, NUM_COLORS);
+        var extractions = {};
+        for (var i = 0; i < COLOR_NUMBERS.length; i++) {
+            var num_colors = COLOR_NUMBERS[i];
+            extractions[num_colors] = colorgram.extract(image, num_colors);
+        }
         console.log("Saving output to '" + outPath + "'...");
-        saveColors(colors, outPath);
+        saveJson(extractions, outPath);
         console.log("Done.");
     });
 }
