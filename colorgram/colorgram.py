@@ -34,7 +34,7 @@ def extract(f, number_of_colors):
     
     samples = sample(image)
     used = pick_used(samples)
-    used.sort(key=lambda x: x[0])
+    used.sort(key=lambda x: x[0], reverse=True)
     return get_colors(samples, used, number_of_colors)
 
 def sample(image):
@@ -144,7 +144,7 @@ def hsl(r, g, b):
 # print
 
 # And on the JS side:
-# var Y = ~~(img.data[i] * 0.2126 + img.data[i + 1] * 0.7152 + img.data[i + 2] * 0.0722;
+# var Y = ~~(img.data[i] * 0.2126 + img.data[i + 1] * 0.7152 + img.data[i + 2] * 0.0722);
 # console.log("Pixel #" + i / img.channels);
 # console.log("h: " + h[0] + ", s: " + h[1] + ", l: " + h[2]);
 # console.log("R: " + img.data[i] + ", G: " + img.data[i + 1] + ", B: " + img.data[i + 2]);

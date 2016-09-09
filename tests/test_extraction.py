@@ -13,6 +13,7 @@ def create_test(image_path, extractions_path, num_colors):
             correct_colors = json.load(f)[str(num_colors)]
         colors = colorgram.extract(image_path, num_colors)
         assert len(colors) == num_colors
+        
         for correct_color, color in zip(correct_colors, colors):
             assert tuple(correct_color[:3]) == color.rgb
             assert -0.01 < correct_color[3] - color.proportion < 0.01
