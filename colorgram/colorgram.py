@@ -111,29 +111,42 @@ def get_colors(samples, used, number_of_colors):
     return colors
 
 def hsl(r, g, b):
-    most = max(r, g, b)
-    least = min(r, g, b)
+    # This looks stupid, but it's way faster than min() and max().
+    if r > g:
+        if b > r:
+            most, least = b, g
+        elif b > g:
+            most, least = r, g
+        else:
+            most, least = r, b
+    else:
+        if b > g:
+            most, least = b, r
+        elif b > r:
+            most, least = g, r
+        else:
+            most, least = g, b
 
-    l = (most + least) / 2
+    l = (most + least) >> 2
 
     if most == least:
         h = s = 0
     else:
         diff = most - least
         if l > 127:
-            s = diff / (510 - most - least)
+            s = diff // (510 - most - least)
         else:
-            s = diff / (most + least)
+            s = diff // (most + least)
         
         if most == r:
-            h = (g - b) / diff + (6 if g < b else 0)
+            h = (g - b) // diff + (6 if g < b else 0)
         elif most == g:
-            h = (b - r) / diff + 2
+            h = (b - r) // diff + 2
         else:
-            h = (r - g) / diff + 4
-        h /= 6
+            h = (r - g) // diff + 4
+        h //= 6
     
-    return int(h * 255), int(s * 255), int(l)
+    return h * 255, s * 255, l
 
 # Useful snippet for testing values:
 # print "Pixel #{}".format(str(y * width + x))
