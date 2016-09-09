@@ -9,6 +9,9 @@ from PIL import Image
 
 if sys.version_info[0] <= 2:
     range = xrange
+    ARRAY_DATATYPE = b'l'
+else:
+    ARRAY_DATATYPE = 'l'
 
 class Color(object):
     def __init__(self, r, g, b, proportion):
@@ -43,7 +46,7 @@ def sample(image):
     sides = 1 << 2 # Left by the number of bits used.
     cubes = sides ** 7
 
-    samples = array.array(b'l', (0 for _ in range(cubes)))
+    samples = array.array(ARRAY_DATATYPE, (0 for _ in range(cubes)))
     width, height = image.size
     
     pixels = image.load()
