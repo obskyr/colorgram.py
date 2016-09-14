@@ -1,11 +1,13 @@
 colorgram.py
 ============
+
 **colorgram.py** is a Python library that lets you extract colors from images. Compared to other libraries, the colorgram algorithm's results are more intense.
 
 colorgram.py is a port of `colorgram.js <https://github.com/darosh/colorgram-js>`__, a JavaScript library written by GitHub user `@darosh <https://github.com/darosh>`__. The goal is to have 100% accuracy to the results of the original library (a goal that is met). I decided to port it since I much prefer the results the colorgram algorithm gets over those of alternative libraries - have a look in the next section.
 
 Results
 -------
+
 .. image:: http://i.imgur.com/11Pohrk.png
     :alt: Results of colorgram.py on a 512x512 image
 
@@ -22,6 +24,8 @@ You can install colorgram.py with `pip <https://pip.pypa.io/en/latest/installing
 
 How to use
 ----------
+
+Using colorgram.py is simple. Mainly there's only one function you'll need to use - ``colorgram.extract``.
 
 Example
 '''''''
@@ -47,9 +51,10 @@ Extract colors from an image. ``image`` may be either a path to a file, or a fil
 ``colorgram.Color``
 '''''''''''''''''''
 A color extracted from an image. Its properties are:
+
 * ``Color.rgb`` - The color represented as RGB from 0 to 255, e.g. ``(255, 151, 210)``.
-* ``Color.hsl`` - The color represented as HSL from 0 to 255, e.g. ``(230, 104, 255)``
-* ``Color.proportion``` - The proportion of the image that is in the extracted color from 0 to 1, e.g. ``0.34``
+* ``Color.hsl`` - The color represented as HSL from 0 to 255, e.g. ``(230, 104, 255)``.
+* ``Color.proportion`` - The proportion of the image that is in the extracted color from 0 to 1, e.g. ``0.34``.
 
 Sorting by HSL
 ''''''''''''''
