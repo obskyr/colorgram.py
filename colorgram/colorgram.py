@@ -27,7 +27,7 @@ class Color(object):
         try:
             return self._hsl
         except AttributeError:
-            self._hsl = hsl(*self._rgb)
+            self._hsl = hsl(*self.rgb)
             return self._hsl
 
 def extract(f, number_of_colors):
@@ -77,7 +77,12 @@ def sample(image):
             # packed |= (r & top_two_bits) >> 2
             # packed |= (g & top_two_bits) >> 4
             # packed |= (b & top_two_bits) >> 6
-            
+            # print "Pixel #{}".format(str(y * width + x))
+            # print "h: {}, s: {}, l: {}".format(str(h), str(s), str(l))
+            # print "R: {}, G: {}, B: {}".format(str(r), str(g), str(b))
+            # print "Y: {}".format(str(Y))
+            # print "Packed: {}, binary: {}".format(str(packed), bin(packed)[2:])
+            # print
             packed *= 4
             samples[packed]     += r
             samples[packed + 1] += g
@@ -130,26 +135,26 @@ def hsl(r, g, b):
         else:
             most, least = g, b
 
-    l = (most + least) >> 2
+    l = (most + least) >> 1
 
     if most == least:
         h = s = 0
     else:
         diff = most - least
         if l > 127:
-            s = diff // (510 - most - least)
+            s = diff * 255 // (510 - most - least)
         else:
-            s = diff // (most + least)
+            s = diff * 255 // (most + least)
         
         if most == r:
-            h = (g - b) // diff + (6 if g < b else 0)
+            h = (g - b) * 255 // diff + (1530 if g < b else 0)
         elif most == g:
-            h = (b - r) // diff + 2
+            h = (b - r) * 255 // diff + 510
         else:
-            h = (r - g) // diff + 4
+            h = (r - g) * 255 // diff + 1020
         h //= 6
     
-    return h * 255, s * 255, l
+    return h, s, l
 
 # Useful snippet for testing values:
 # print "Pixel #{}".format(str(y * width + x))
