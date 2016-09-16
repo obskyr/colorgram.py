@@ -4,18 +4,22 @@ from __future__ import unicode_literals
 from __future__ import division
 
 import array
-import sys
+from collections import namedtuple
 from PIL import Image
 
+import sys
 if sys.version_info[0] <= 2:
     range = xrange
     ARRAY_DATATYPE = b'l'
 else:
     ARRAY_DATATYPE = 'l'
 
+Rgb = namedtuple('Rgb', ('r', 'g', 'b'))
+Hsl = namedtuple('Hsl', ('h', 's', 'l'))
+
 class Color(object):
     def __init__(self, r, g, b, proportion):
-        self.rgb = (r, g, b)
+        self.rgb = Rgb(r, g, b)
         self.proportion = proportion
     
     def __repr__(self):
@@ -27,7 +31,7 @@ class Color(object):
         try:
             return self._hsl
         except AttributeError:
-            self._hsl = hsl(*self.rgb)
+            self._hsl = Hsl(*hsl(*self.rgb))
             return self._hsl
 
 def extract(f, number_of_colors):
