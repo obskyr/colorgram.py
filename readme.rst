@@ -8,10 +8,10 @@ colorgram.py is a port of `colorgram.js <https://github.com/darosh/colorgram-js>
 Results
 -------
 
-.. image:: http://i.imgur.com/11Pohrk.png
+.. image:: http://i.imgur.com/BeReaRM.png
     :alt: Results of colorgram.py on a 512x512 image
 
-Time-wise, an extraction of a 512x512 image takes about 66ms (another popular color extraction library, `Color Thief <https://github.com/fengsp/color-thief-py>`__, takes about 105ms).
+Time-wise, an extraction of a 512x512 image takes about 0.66s (another popular color extraction library, `Color Thief <https://github.com/fengsp/color-thief-py>`__, takes about 1.05s).
 
 
 Installation
