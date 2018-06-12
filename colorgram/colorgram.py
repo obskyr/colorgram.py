@@ -35,7 +35,10 @@ class Color(object):
             return self._hsl
 
 def extract(f, number_of_colors):
-    image = Image.open(f)
+    if str(type(f)) == "<class 'PIL.JpegImagePlugin.JpegImageFile'>":
+        image = f
+    else:
+        image = Image.open(f)
     if image.mode not in ('RGB', 'RGBA', 'RGBa'):
         image = image.convert('RGB')
     
