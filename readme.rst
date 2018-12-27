@@ -53,7 +53,7 @@ Example
 
 ``colorgram.extract(image, number_of_colors)``
 ''''''''''''''''''''''''''''''''''''''''''''''
-Extract colors from an image. ``image`` may be either a path to a file, or a file-like object. The function will return a list of ``number_of_colors`` ``Color`` objects.
+Extract colors from an image. ``image`` may be either a path to a file, a file-like object, or a Pillow ``Image`` object. The function will return a list of ``number_of_colors`` ``Color`` objects.
 
 ``colorgram.Color``
 '''''''''''''''''''

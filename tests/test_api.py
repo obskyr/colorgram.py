@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 
 import colorgram
+from PIL import Image
+
+def test_extract_from_file():
+    colorgram.extract('data/test.png', 1)
+
+def test_extract_from_image_object():
+    image = Image.open('data/test.png')
+    colorgram.extract(image, 1)
 
 def test_color_access():
     color = colorgram.Color(255, 151, 210, 0.15)
