@@ -4,8 +4,10 @@ from __future__ import unicode_literals
 from __future__ import division
 
 import array
+import requests
 from collections import namedtuple
 from PIL import Image
+from io import BytesIO
 
 import sys
 if sys.version_info[0] <= 2:
@@ -34,8 +36,13 @@ class Color(object):
             self._hsl = Hsl(*hsl(*self.rgb))
             return self._hsl
 
-def extract(f, number_of_colors):
-    image = f if isinstance(f, Image.Image) else Image.open(f)
+def extract(f, number_of_colors, url=False):
+    if url:
+        img= requests.get(f)
+        image = Image.open(BytesIO(img.content))
+    else:
+        image = f if isinstance(f, Image.Image) else Image.open(f)
+
     if image.mode not in ('RGB', 'RGBA', 'RGBa'):
         image = image.convert('RGB')
     

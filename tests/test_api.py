@@ -10,6 +10,10 @@ def test_extract_from_image_object():
     image = Image.open('data/test.png')
     colorgram.extract(image, 1)
 
+def test_extract_from_url():
+    url = 'https://camo.githubusercontent.com/ca5e835b6671e2eb15679c13af834927f3d4d26e/687474703a2f2f692e696d6775722e636f6d2f4265526561524d2e706e67'
+    colorgram.extract(url,url=True)
+
 def test_color_access():
     color = colorgram.Color(255, 151, 210, 0.15)
 
