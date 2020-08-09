@@ -9,7 +9,7 @@ def test_extract_from_file():
 
 def test_extract_from_image_object():
     image = Image.open('data/test.png')
-    colors = colorgram.extract(image, 1)
+    colorgram.extract(image, 1)
 
 def test_extract_from_url():
     url = 'https://camo.githubusercontent.com/ca5e835b6671e2eb15679c13af834927f3d4d26e/687474703a2f2f692e696d6775722e636f6d2f4265526561524d2e706e67'
