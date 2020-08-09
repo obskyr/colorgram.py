@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 from __future__ import division
 
 import array
-import requests
 from collections import namedtuple
 from PIL import Image
 from io import BytesIO
@@ -36,10 +35,15 @@ class Color(object):
             self._hsl = Hsl(*hsl(*self.rgb))
             return self._hsl
 
-def extract(f, number_of_colors, url=False):
-    if url:
-        img= requests.get(f)
-        image = Image.open(BytesIO(img.content))
+def from_url(data):
+    if isinstance(data, (bytes, bytearray)):
+        return True
+    else:
+        return False
+
+def extract(f, number_of_colors):
+    if from_url(f):
+        image = Image.open(BytesIO(f))
     else:
         image = f if isinstance(f, Image.Image) else Image.open(f)
 

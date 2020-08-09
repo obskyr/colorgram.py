@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from colorgram import colorgram
+import colorgram
 from PIL import Image
 import requests
 
