@@ -10,11 +10,6 @@ def test_extract_from_image_object():
     image = Image.open('data/test.png')
     colorgram.extract(image, 1)
 
-def test_extract_from_bytes():
-    with open('data/test.png','rb') as img:
-        img_data = img.read()
-        colorgram.extract(img_data, 1)
-
 def test_color_access():
     color = colorgram.Color(255, 151, 210, 0.15)
 
