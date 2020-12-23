@@ -4,3 +4,5 @@ dist/
 node_modules/
 .cache/
 .vscode/
+.idea
+.DS_Store
