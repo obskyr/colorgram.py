@@ -75,7 +75,7 @@ Something the original library lets you do is sort the colors you get by HSL. In
 
 Performance
 -----------
-Performance can be boosted with usage of Cython `Cython <https://cython.org>`__ dependency. When Cython discovered would automatically switch on more efficient C-version of project.
+Performance can be boosted with usage of `Cython <https://cython.org>`__ dependency. When Cython discovered would automatically switch on more efficient C-version of project.
 
 **Benchmark conditions:**
 
