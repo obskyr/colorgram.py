@@ -5,4 +5,4 @@
 
 from __future__ import absolute_import
 
-from .colorgram import extract, Color
+from .colorgram import *

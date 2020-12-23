@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+
 from setuptools import setup
 
-VERSION = '1.2.0'
+VERSION = '1.3.0'
 
 REQUIREMENTS = [
     "pillow >= 3.3.1"
@@ -12,11 +14,18 @@ REQUIREMENTS = [
 with open("readme.rst", 'r') as f:
     long_description = f.read()
 
+
+def get_packages(package):
+    """ Return root package and all sub-packages. """
+    return [dirpath
+            for dirpath, dirnames, filenames in os.walk(package)
+            if os.path.exists(os.path.join(dirpath, '__init__.py'))]
+
 setup(
     name="colorgram.py",
     version=VERSION,
     install_requires=REQUIREMENTS,
-    packages=['colorgram'],
+    packages=get_packages('colorgram'),
     author="Samuel Messner",
     author_email="powpowd@gmail.com",
     url="https://github.com/obskyr/colorgram.py",
@@ -37,6 +46,10 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Utilities"
     ]

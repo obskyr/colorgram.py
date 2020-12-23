@@ -73,6 +73,50 @@ Something the original library lets you do is sort the colors you get by HSL. In
     # or...
     sorted(colors, key=lambda c: c.hsl.h)
 
+Performance
+-----------
+Performance can be boosted with usage of Cython `Cython <https://cython.org>`__ dependency. When Cython discovered would automatically switch on more efficient C-version of project.
+
+**Benchmark conditions:**
+
+* machine: Mac OS Catalina, Intel Core i5 3.4 GHz
+* image: `tests/test.png`
+
+**Benchmark code:**
+
+.. code:: python
+
+    import timeit
+    import statistics  # Python 2.7: pip install statistics
+
+    _setup = '''
+    from PIL import Image
+    num_colors = 6
+    img = Image.open('data/test.png')
+    img.load()
+    '''
+
+    _code = '''
+    import colorgram
+    colorgram.extract(img, num_colors)
+    '''
+    number = 20
+    repeats = 10
+    measures = timeit.repeat(setup=_setup, stmt=_code, number=number, repeat=repeats)
+
+    _mean = statistics.mean(measures) / number
+    _stdev = statistics.stdev(measures) / number
+
+    print('results: %0.6f (+/- %0.6f) sec.' % (_mean, _stdev))
+
+
+**Benchmark results:**
+
+* results: 0.402446 (+/- 0.003126) sec. (Python 2.7.6, Pillow 6.2.2)
+* results: 0.081205 (+/- 0.003234) sec. (Python 2.7.6, Pillow 6.2.2, Cython) ~ 4.95 faster
+* results: 0.553765 (+/- 0.002030) sec. (Python 3.6.8, Pillow 8.0.1)
+* results: 0.108687 (+/- 0.011445) sec. (Python 3.6.8, Pillow 8.0.1, Cython) ~ 5.09 faster
+
 Contact
 -------
 
