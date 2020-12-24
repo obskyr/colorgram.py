@@ -26,6 +26,8 @@ setup(
     version=VERSION,
     install_requires=REQUIREMENTS,
     packages=get_packages('colorgram'),
+    package_data={'colorgram': ['colorgram/utils_c.pyx']},
+    include_package_data=True,
     author="Samuel Messner",
     author_email="powpowd@gmail.com",
     url="https://github.com/obskyr/colorgram.py",
