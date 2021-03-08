@@ -16,6 +16,7 @@ else:
 
 Rgb = namedtuple('Rgb', ('r', 'g', 'b'))
 Hsl = namedtuple('Hsl', ('h', 's', 'l'))
+TraditionalHsl = namedtuple('TraditionalHsl', ('h', 's', 'l'))
 
 class Color(object):
     def __init__(self, r, g, b, proportion):
@@ -33,6 +34,14 @@ class Color(object):
         except AttributeError:
             self._hsl = Hsl(*hsl(*self.rgb))
             return self._hsl
+    @property
+    def traditional_hsl(self): 
+        #uses the traditional (360, 100, 100) format HSL usually uses
+        try:
+            return self._traditional_hsl
+        except AttributeError:
+            self._traditional_hsl = TraditionalHsl(*traditional_hsl(*self.rgb))
+            return self._traditional_hsl
 
 def extract(f, number_of_colors):
     image = f if isinstance(f, Image.Image) else Image.open(f)
@@ -60,7 +69,7 @@ def sample(image):
             # 0bYYhhllrrggbb - luminance, hue, luminosity, red, green, blue.
 
             r, g, b = pixels[x, y][:3]
-            h, s, l = hsl(r, g, b)
+            h, s, l = hsl(r, g, b) #this is still using the original HSL in case it's necessry for proper function
             # Standard constants for converting RGB to relative luminance.
             Y = int(r * 0.2126 + g * 0.7152 + b * 0.0722)
 
@@ -160,6 +169,47 @@ def hsl(r, g, b):
     
     return h, s, l
 
+def traditional_hsl(hex_r, hex_g, hex_b):
+    # an endeavor was made to preserve the logic of the orignal for
+    # simplicity sake and to preserve any efficencey related choices
+
+    r = hex_r / 255
+    g = hex_g / 255
+    b = hex_b / 255
+    if r > g:
+        if b > r:
+            most, least = b, g
+        elif b > g:
+            most, least = r, g
+        else:
+            most, least = r, b
+    else:
+        if b > g:
+            most, least = b, r
+        elif b > r:
+            most, least = g, r
+        else:
+            most, least = g, b
+    
+    l = int((most + least) * 100 / 2)
+    
+    if most == least:
+        h = s = 0
+    else:
+        diff = most - least
+        if l > 0.5:
+            s = int(diff * 100 / (2 - most - least))
+        else:
+            s = int(diff * 100 / (most + least))
+        
+        if most == r:
+            h = int(60 * (g - b) / diff + (6 if g < b else 0))
+        elif most == g:
+            h = int(60 * (b - r) / diff + 2)
+        else:
+            h = int(60 * (r - g) / diff + 4)
+    
+    return h, s, l
 # Useful snippet for testing values:
 # print "Pixel #{}".format(str(y * width + x))
 # print "h: {}, s: {}, l: {}".format(str(h), str(s), str(l))
