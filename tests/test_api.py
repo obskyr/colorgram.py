@@ -20,3 +20,5 @@ def test_color_access():
     assert (color.hsl.h, color.hsl.s, color.hsl.l) == color.hsl
 
     assert color.proportion == 0.15
+
+    assert color.hex == '#ff97d2'

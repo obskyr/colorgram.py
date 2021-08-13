@@ -21,6 +21,7 @@ class Color(object):
     def __init__(self, r, g, b, proportion):
         self.rgb = Rgb(r, g, b)
         self.proportion = proportion
+        self.hex = '#%02x%02x%02x' % self.rgb
     
     def __repr__(self):
         return "<colorgram.py Color: {}, {}%>".format(
